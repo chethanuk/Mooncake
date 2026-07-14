@@ -207,7 +207,7 @@ __device__ __forceinline__ void mc_ibgda_put(const IbgdaContext& ctx,
     mc_ibgda_write_rdma_write_wqe(qp, reinterpret_cast<uint64_t>(send_ptr),
                                   mc_bswap32(ctx.rkeys[src_rank]), recv_raddr,
                                   mc_bswap32(ctx.rkeys[dst_rank]), nbytes);
-    mc_ibgda_post_send_db(qp);
+    // mc_ibgda_post_send_db(qp);
     mc_ibgda_unlock(qp);
 }
 
