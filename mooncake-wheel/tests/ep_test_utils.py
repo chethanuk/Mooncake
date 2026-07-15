@@ -150,7 +150,9 @@ def bench_kineto(fn, kernel_names, num_tests: int = 30, suppress_kineto_output: 
     suppress = suppress_stdout_stderr if suppress_kineto_output else empty_suppress
     with suppress():
         schedule = torch.profiler.schedule(wait=0, warmup=1, active=1, repeat=1)
-        with torch.profiler.profile(activities=[torch.profiler.ProfilerActivity.CUDA], schedule=schedule) as prof:
+        with torch.profiler.profile(activities=[torch.profiler.ProfilerActivity.CUDA],
+                                    schedule=schedule,
+                                    acc_events=True) as prof:
             for i in range(2):
                 # NOTES: use a large kernel and a barrier to eliminate the unbalanced CPU launch overhead
                 if barrier_comm_profiling:
